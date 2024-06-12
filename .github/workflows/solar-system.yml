@@ -47,17 +47,18 @@ jobs:
         name: Code Coverage
         container:
           image: node:20
-        services:
-          mongo-db:
-            image: siddhart67/mongo-db:non-prod
-#            ports:  # Not needed as containers (Job & Service) sharing same docker network bridge have all ports open.
-#              - 27017:27017
-            options:  # set container name/label which can also be used in env variables.
-              --name mongo
-        env:
-          MONGO_URI: 'mongodb://mongo:27017/superData'  # app ports
-          MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
-          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+        # Commented out because the image (custom) is not accessible
+#        services:
+#          mongo-db:
+#            image: sidd/mongo-db:non-prod
+##            ports:  # Not needed as containers (Job & Service) sharing same docker network bridge have all ports open.
+##              - 27017:27017
+#            options:  # set container name/label which can also be used in env variables.
+#              --name mongo
+#        env:
+#          MONGO_URI: 'mongodb://mongo:27017/superData'  # app ports
+#          MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+#          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
         runs-on: ubuntu-latest
         steps:
           - name: Checkout Repository
