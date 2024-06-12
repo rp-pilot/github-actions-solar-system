@@ -44,35 +44,35 @@ jobs:
             path: test-results.xml
 
     code-coverage:
-      name: Code Coverage
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
+        name: Code Coverage
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v4
 
-        - name: Setup NodeJS Version
-          uses: actions/setup-node@v3
-          with:
-            node-version: 20
+          - name: Setup NodeJS Version
+            uses: actions/setup-node@v3
+            with:
+              node-version: 20
 
-        - name: Cache NPM dependencies
-          uses: actions/cache@v3
-          with:
-            path: ~/.npm
-            key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          - name: Cache NPM dependencies
+            uses: actions/cache@v3
+            with:
+              path: ~/.npm
+              key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-        - name: Install Dependencies
-          run: npm install
+          - name: Install Dependencies
+            run: npm install
 
-        - name: Check Code Coverage
-          continue-on-error: true
-          run: npm run coverage
+          - name: Check Code Coverage
+            continue-on-error: true
+            run: npm run coverage
 
-        - name: Archive Test Result
-          uses: actions/upload-artifact@v3
-          with:
-            name: Code-Coverage-Result
-            path: coverage
+          - name: Archive Test Result
+            uses: actions/upload-artifact@v3
+            with:
+              name: Code-Coverage-Result
+              path: coverage
 
     docker:
       name: Containerization
@@ -88,3 +88,10 @@ jobs:
             registry: ghcr.io
             username: ${{ github.repository_owner }}
             password: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Docker build and push
+          uses: docker/build-push-action@v4
+          with:
+            context: .
+            push: true
+            tags: ghcr.io/${{ github.repository_owner }}/solar-system:${{ github.sha }}
