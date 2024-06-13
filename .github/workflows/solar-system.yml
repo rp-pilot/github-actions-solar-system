@@ -137,7 +137,7 @@ jobs:
           - name: Verify kubectl version
             continue-on-error: true
             run: |
-              kubectl version --short
+              kubectl version --short -o yaml
 
           - name: Fetch Ingress IP and save in Github Environment variable
             run: |
