@@ -135,5 +135,6 @@ jobs:
               kubeconfig: ${{ secrets.KUBECONFIG }}
 
           - name: Verify kubectl version
+            continue-on-error: true
             run: |
-              kubectl version
+              kubectl version --short
