@@ -136,4 +136,4 @@ jobs:
 
           - name: Verify kubectl version
             run: |
-              kubectl version -short -o yaml
+              kubectl version
