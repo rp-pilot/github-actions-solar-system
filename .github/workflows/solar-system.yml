@@ -153,7 +153,7 @@ jobs:
               NAMESPACE: ${{ vars.NAMESPACE }}
               REPLICAS: ${{ vars.REPLICAS }}
               IMAGE: ghcr.io/${{ github.repository_owner }}/solar-system:${{ github.sha }}
-              INGRESS_IP: $INGRESS_IP
+              INGRESS_IP: ${{ env.INGRESS_IP }}
 
           - name: Check the kube manifest files
             run: |
